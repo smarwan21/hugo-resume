@@ -1,5 +1,11 @@
 {{ define "main" }}
    {{ partial "about.html" .}}
+   {{ if .Site.Params.showPublications }}
+      {{ with .Site.GetPage "section" "publications" }}
+         {{ .Scratch.Set "sectionId" (default "Publications" .Site.Params.publicationsAlternateName) }}
+         {{ partial "sectionSummary" . }}
+      {{ end }}
+   {{ end }}
    {{ if .Site.Params.showSkills }}
        {{ partial "portfolio/skills.html" . }}
    {{ end }}
@@ -12,12 +18,6 @@
    {{ if .Site.Params.showOpenSource }}
       {{ with .Site.GetPage "section" "projects/contributions" }}
          {{ .Scratch.Set "sectionId" "open" }}
-         {{ partial "sectionSummary" . }}
-      {{ end }}
-   {{ end }}
-   {{ if .Site.Params.showPublications }}
-      {{ with .Site.GetPage "section" "publications" }}
-         {{ .Scratch.Set "sectionId" (default "Publications" .Site.Params.publicationsAlternateName) }}
          {{ partial "sectionSummary" . }}
       {{ end }}
    {{ end }}
